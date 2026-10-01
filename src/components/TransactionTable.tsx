@@ -37,6 +37,27 @@ export function TransactionTable({ transactions, onEdit, onDelete }: Props) {
 
   return (
     <div className="table-wrap">
+      {/* Column headers are hidden on phones, so sorting gets its own control there. */}
+      <div className="mobile-sort">
+        <label>
+          Sort by{" "}
+          <select value={sort.key} onChange={(e) => setSort((s) => ({ ...s, key: e.target.value as SortKey }))}>
+            {COLUMNS.map((c) => (
+              <option key={c.key} value={c.key}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          type="button"
+          className="btn btn--small"
+          onClick={() => setSort((s) => ({ ...s, dir: s.dir === 1 ? -1 : 1 }))}
+          aria-label={sort.dir === 1 ? "Sorted ascending, switch to descending" : "Sorted descending, switch to ascending"}
+        >
+          {sort.dir === 1 ? "▲ Asc" : "▼ Desc"}
+        </button>
+      </div>
       <table className="table">
         <thead>
           <tr>
@@ -64,7 +85,7 @@ export function TransactionTable({ transactions, onEdit, onDelete }: Props) {
             <tr key={t.id}>
               <td className="cell-date">{formatDate(t.date)}</td>
               <td className="cell-name">{t.description}</td>
-              <td>
+              <td className="cell-category">
                 <span className="chip">{t.category}</span>
               </td>
               <td className={`num amount amount--${t.type}`}>

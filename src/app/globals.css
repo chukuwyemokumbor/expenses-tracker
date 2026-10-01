@@ -523,6 +523,9 @@ button:focus-visible {
   white-space: nowrap;
   width: 1%;
 }
+.mobile-sort {
+  display: none;
+}
 .th-sort {
   border: 0;
   padding: 0;
@@ -660,4 +663,131 @@ button:focus-visible {
 }
 .banner__text {
   flex: 1;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tile--hero {
+    grid-column: 1 / -1;
+  }
+  .grid--charts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  /* Table rows become stacked cards. */
+  .table-wrap {
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+  .mobile-sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .table {
+    min-width: 0;
+  }
+  .table thead {
+    display: none;
+  }
+  .table,
+  .table tbody {
+    display: block;
+  }
+  .table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "name amount"
+      "meta actions";
+    align-items: center;
+    gap: 2px 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--grid);
+  }
+  .table tbody tr:hover {
+    background: none;
+  }
+  .table td {
+    padding: 0;
+    border: 0;
+  }
+  .table .cell-name {
+    grid-area: name;
+  }
+  .table .amount {
+    grid-area: amount;
+  }
+  /* Date and category share the second line. */
+  .table .cell-date {
+    grid-area: meta;
+    font-size: 12px;
+  }
+  .table .cell-category {
+    grid-area: meta;
+    justify-self: start;
+    margin-left: 96px;
+  }
+  .table .actions {
+    grid-area: actions;
+    width: auto;
+  }
+  .table .actions .btn {
+    padding: 0 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 20px 16px 40px;
+    gap: 16px;
+  }
+  .page__header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .page__actions .btn {
+    flex: 1;
+  }
+  .filters select {
+    flex: 1 1 140px;
+  }
+  .filters input[type="search"] {
+    flex-basis: 100%;
+    max-width: none;
+  }
+  .card,
+  .tile {
+    padding: 16px;
+  }
+  .tile__hero {
+    font-size: 40px;
+  }
+  .form__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .form__actions {
+    flex-wrap: wrap;
+  }
+  .modal__body {
+    padding: 18px 16px;
+  }
+  .table-wrap {
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
