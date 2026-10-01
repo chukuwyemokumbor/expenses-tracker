@@ -177,6 +177,101 @@ button:focus-visible {
   margin: 2px 0 12px;
   color: var(--ink-2);
 }
+.card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* ---------- Budgets ---------- */
+.budgets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px 24px;
+}
+.budget__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.budget__meta {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.meter {
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.meter__fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.meter--ok .meter__fill {
+  background: var(--good);
+}
+.meter--warning .meter__fill {
+  background: var(--warning);
+}
+.meter--over .meter__fill {
+  background: var(--critical);
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.status__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  flex: none;
+}
+.status--ok .status__icon {
+  background: var(--good);
+}
+.status--warning .status__icon,
+.banner--warning .banner__icon {
+  background: var(--warning);
+  color: #0b0b0b;
+}
+.status--over .status__icon,
+.banner--over .banner__icon {
+  background: var(--critical);
+}
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: 8px;
+}
+.banner--warning {
+  border-left-color: var(--warning);
+}
+.banner--over {
+  border-left-color: var(--critical);
+}
 
 /* ---------- Summary tiles ---------- */
 .tiles {
@@ -487,6 +582,9 @@ button:focus-visible {
   justify-content: flex-end;
   gap: 8px;
   margin-top: 4px;
+}
+.form__actions-start {
+  margin-right: auto;
 }
 .form__error {
   margin: 0;

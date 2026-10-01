@@ -13,3 +13,6 @@ export interface Transaction {
 
 /** The fields a user fills in; the id is set by the app. */
 export type TransactionInput = Omit<Transaction, "id">;
+
+/** Monthly spending limit per expense category; categories without a key have no budget. */
+export type Budgets = Record<string, number>;

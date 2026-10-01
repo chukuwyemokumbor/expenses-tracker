@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
+import { useBudgets } from "@/hooks/useBudgets";
+import { budgetLines } from "@/lib/budget";
 import type { Transaction, TransactionType } from "@/types/transaction";
 import { formatCurrency, formatDate, formatMonth, monthKey } from "@/lib/format";
 import { TransactionTable } from "./TransactionTable";
@@ -9,11 +11,14 @@ import { TransactionForm } from "./TransactionForm";
 import { SummaryTiles } from "./SummaryTiles";
 import { CategoryChart } from "./CategoryChart";
 import { MonthlyChart } from "./MonthlyChart";
+import { BudgetList } from "./BudgetList";
+import { BudgetDialog } from "./BudgetDialog";
 
-type DialogState = { kind: "add" } | { kind: "edit"; transaction: Transaction } | null;
+type DialogState = { kind: "add" } | { kind: "edit"; transaction: Transaction } | { kind: "budgets" } | null;
 
 export function ExpenseTracker() {
   const store = useTransactions();
+  const budgetStore = useBudgets();
   const [dialog, setDialog] = useState<DialogState>(null);
 
   // null means "the most recent month that has transactions".
@@ -58,6 +63,12 @@ export function ExpenseTracker() {
     setCategory("all");
     setQuery("");
   }
+
+  // Budgets are monthly; with "All months" selected, show the latest month.
+  const budgetMonth = month === "all" ? months[0] : month;
+  const lines = budgetMonth ? budgetLines(store.transactions, budgetStore.budgets, budgetMonth) : [];
+  const overCount = lines.filter((l) => l.status === "over").length;
+  const warnCount = lines.filter((l) => l.status === "warning").length;
 
   function handleDelete(t: Transaction) {
     const label = `${t.description} (${formatCurrency(t.amount)} on ${formatDate(t.date)})`;
@@ -135,6 +146,30 @@ export function ExpenseTracker() {
       </div>
 
       <section className="card">
+        <div className="card__head">
+          <div>
+            <h2 className="card__title">Budgets</h2>
+            <p className="card__sub">{budgetMonth ? formatMonth(budgetMonth) : "No transactions yet"}</p>
+          </div>
+          <button type="button" className="btn btn--small" onClick={() => setDialog({ kind: "budgets" })}>
+            Edit budgets
+          </button>
+        </div>
+        {(overCount > 0 || warnCount > 0) && (
+          <div className={`banner banner--${overCount > 0 ? "over" : "warning"}`} role="status">
+            <span className="status__icon banner__icon" aria-hidden="true">
+              {overCount > 0 ? "✕" : "!"}
+            </span>
+            <span>
+              {overCount > 0 && `${overCount} ${overCount === 1 ? "category is" : "categories are"} over budget. `}
+              {warnCount > 0 && `${warnCount} ${warnCount === 1 ? "is" : "are"} close to the limit.`}
+            </span>
+          </div>
+        )}
+        <BudgetList lines={lines} />
+      </section>
+
+      <section className="card">
         <h2 className="card__title">Transactions</h2>
         <p className="card__sub">
           {visible.length} of {store.transactions.length} transactions
@@ -151,6 +186,14 @@ export function ExpenseTracker() {
         <TransactionForm
           transaction={dialog.transaction}
           onSave={(input) => store.updateTransaction(dialog.transaction.id, input)}
+          onClose={() => setDialog(null)}
+        />
+      )}
+      {dialog?.kind === "budgets" && (
+        <BudgetDialog
+          budgets={budgetStore.budgets}
+          onSave={budgetStore.saveBudgets}
+          onReset={budgetStore.resetBudgets}
           onClose={() => setDialog(null)}
         />
       )}
