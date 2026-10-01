@@ -173,6 +173,42 @@ button:focus-visible {
   color: var(--ink-2);
 }
 
+/* ---------- Summary tiles ---------- */
+.tiles {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  min-width: 0;
+}
+.tile__label {
+  color: var(--ink-2);
+  font-size: 13px;
+}
+.tile__hero {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 6px 0 4px;
+}
+.tile__value {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 6px 0 4px;
+}
+.tile__sub {
+  color: var(--muted);
+  font-size: 13px;
+}
+
 /* ---------- Filters ---------- */
 .filters {
   display: flex;

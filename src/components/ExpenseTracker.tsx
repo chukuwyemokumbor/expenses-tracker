@@ -3,15 +3,15 @@
 import { useMemo, useState } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
 import type { Transaction, TransactionType } from "@/types/transaction";
-import { formatCurrency, formatDate, formatMonth, monthKey, totals } from "@/lib/format";
+import { formatCurrency, formatDate, formatMonth, monthKey } from "@/lib/format";
 import { TransactionTable } from "./TransactionTable";
 import { TransactionForm } from "./TransactionForm";
+import { SummaryTiles } from "./SummaryTiles";
 
 type DialogState = { kind: "add" } | { kind: "edit"; transaction: Transaction } | null;
 
 export function ExpenseTracker() {
   const store = useTransactions();
-  const { income, expenses, net } = totals(store.transactions);
   const [dialog, setDialog] = useState<DialogState>(null);
 
   // null means "the most recent month that has transactions".
@@ -30,16 +30,23 @@ export function ExpenseTracker() {
     [store.transactions],
   );
 
-  const visible = useMemo(() => {
+  // Category + search apply everywhere; month scopes the period; type narrows the list only.
+  const matching = useMemo(() => {
     const q = query.trim().toLowerCase();
     return store.transactions.filter(
       (t) =>
-        (month === "all" || monthKey(t.date) === month) &&
-        (type === "all" || t.type === type) &&
         (category === "all" || t.category === category) &&
         (!q || t.description.toLowerCase().includes(q) || t.category.toLowerCase().includes(q)),
     );
-  }, [store.transactions, month, type, category, query]);
+  }, [store.transactions, category, query]);
+
+  const scoped = month === "all" ? matching : matching.filter((t) => monthKey(t.date) === month);
+  const visible = type === "all" ? scoped : scoped.filter((t) => t.type === type);
+
+  const prevMonth = month === "all" ? undefined : months[months.indexOf(month) + 1];
+  const previous = prevMonth
+    ? { month: prevMonth, transactions: matching.filter((t) => monthKey(t.date) === prevMonth) }
+    : null;
 
   const isFiltered = monthChoice !== null || type !== "all" || category !== "all" || query !== "";
 
@@ -61,8 +68,7 @@ export function ExpenseTracker() {
         <div>
           <h1>Expenses</h1>
           <p className="page__sub">
-            {store.transactions.length} transactions · {formatCurrency(income)} in · {formatCurrency(expenses)} out ·{" "}
-            {formatCurrency(net)} net
+            {month === "all" ? "All time" : formatMonth(month)} · track income and expenses, and see where your money goes
           </p>
         </div>
         <div className="page__actions">
@@ -110,6 +116,8 @@ export function ExpenseTracker() {
           </button>
         )}
       </div>
+
+      <SummaryTiles transactions={scoped} previous={previous} />
 
       <section className="card">
         <h2 className="card__title">Transactions</h2>
