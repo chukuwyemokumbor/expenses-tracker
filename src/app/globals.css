@@ -134,6 +134,9 @@ select {
   background: transparent;
   border-color: transparent;
 }
+.btn--danger {
+  color: var(--critical-ink);
+}
 .btn--small {
   height: 28px;
   padding: 0 10px;

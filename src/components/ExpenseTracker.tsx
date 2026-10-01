@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
 import type { Transaction } from "@/types/transaction";
-import { formatCurrency, totals } from "@/lib/format";
+import { formatCurrency, formatDate, totals } from "@/lib/format";
 import { TransactionTable } from "./TransactionTable";
 import { TransactionForm } from "./TransactionForm";
 
@@ -13,6 +13,11 @@ export function ExpenseTracker() {
   const store = useTransactions();
   const { income, expenses, net } = totals(store.transactions);
   const [dialog, setDialog] = useState<DialogState>(null);
+
+  function handleDelete(t: Transaction) {
+    const label = `${t.description} (${formatCurrency(t.amount)} on ${formatDate(t.date)})`;
+    if (confirm(`Delete ${label}? This can't be undone.`)) store.deleteTransaction(t.id);
+  }
 
   return (
     <main className="page">
@@ -39,6 +44,7 @@ export function ExpenseTracker() {
         <TransactionTable
           transactions={store.transactions}
           onEdit={(transaction) => setDialog({ kind: "edit", transaction })}
+          onDelete={handleDelete}
         />
       </section>
 

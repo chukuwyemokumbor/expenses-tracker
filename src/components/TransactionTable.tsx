@@ -16,9 +16,10 @@ const COLUMNS: { key: SortKey; label: string; numeric?: boolean }[] = [
 interface Props {
   transactions: Transaction[];
   onEdit: (t: Transaction) => void;
+  onDelete: (t: Transaction) => void;
 }
 
-export function TransactionTable({ transactions, onEdit }: Props) {
+export function TransactionTable({ transactions, onEdit, onDelete }: Props) {
   // Newest first by default.
   const [sort, setSort] = useState<{ key: SortKey; dir: 1 | -1 }>({ key: "date", dir: -1 });
 
@@ -73,6 +74,14 @@ export function TransactionTable({ transactions, onEdit }: Props) {
               <td className="actions">
                 <button type="button" className="btn btn--small btn--ghost" onClick={() => onEdit(t)}>
                   Edit
+                </button>
+                <button
+                  type="button"
+                  className="btn btn--small btn--ghost btn--danger"
+                  onClick={() => onDelete(t)}
+                  aria-label={`Delete ${t.description}`}
+                >
+                  Delete
                 </button>
               </td>
             </tr>
