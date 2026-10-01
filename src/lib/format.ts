@@ -36,5 +36,11 @@ export function formatMonth(key: string) {
   return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
+/** "2025-01" -> "Jan ’25" */
+export function formatMonthShort(key: string) {
+  const [y, m] = key.split("-").map(Number);
+  return `${new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "short" })} ’${String(y).slice(2)}`;
+}
+
 /** "2025-01-14" -> "2025-01" */
 export const monthKey = (iso: string) => iso.slice(0, 7);

@@ -12,6 +12,9 @@
   --accent: #2a78d6;
   --accent-ink: #ffffff;
 
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+
   --income-ink: #006300;
   --expense-ink: #0b0b0b;
 
@@ -37,6 +40,8 @@
     --axis: #383835;
     --border: rgba(255, 255, 255, 0.1);
     --accent: #3987e5;
+    --series-1: #3987e5;
+    --series-2: #d95926;
     --income-ink: #0ca30c;
     --expense-ink: #ffffff;
     --critical-ink: #e66767;
@@ -207,6 +212,137 @@ button:focus-visible {
 .tile__sub {
   color: var(--muted);
   font-size: 13px;
+}
+
+/* ---------- Charts ---------- */
+.grid {
+  display: grid;
+  gap: 20px;
+}
+.grid--charts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.chart {
+  position: relative;
+  width: 100%;
+}
+.chart svg {
+  display: block;
+  overflow: visible;
+}
+.grid-line {
+  stroke: var(--grid);
+  stroke-width: 1;
+}
+.axis-line {
+  stroke: var(--axis);
+  stroke-width: 1;
+}
+.tick {
+  fill: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.tick--selected {
+  fill: var(--ink);
+  font-weight: 600;
+}
+.axis-label {
+  fill: var(--ink-2);
+  font-size: 12px;
+}
+.value-label {
+  fill: var(--ink-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+.bar {
+  fill: var(--series-1);
+}
+.column.series-1 {
+  fill: var(--series-1);
+}
+.column.series-2 {
+  fill: var(--series-2);
+}
+.bar,
+.column {
+  transition: opacity 0.12s;
+}
+.bar--active,
+.column--active {
+  opacity: 0.8;
+}
+.bar-row {
+  outline: none;
+}
+.bar-row:focus-visible .bar,
+.bar-row:focus-visible .column {
+  opacity: 0.8;
+}
+.legend {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+.legend__line {
+  display: inline-block;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+}
+.legend__swatch.series-1,
+.legend__line.series-1 {
+  background: var(--series-1);
+}
+.legend__swatch.series-2,
+.legend__line.series-2 {
+  background: var(--series-2);
+}
+.tooltip {
+  position: absolute;
+  z-index: 2;
+  min-width: 150px;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  font-size: 12px;
+}
+.tooltip__value {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.tooltip__label {
+  color: var(--ink-2);
+}
+.tooltip__meta {
+  color: var(--muted);
+  margin-top: 2px;
+}
+.tooltip__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 /* ---------- Filters ---------- */

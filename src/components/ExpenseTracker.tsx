@@ -7,6 +7,8 @@ import { formatCurrency, formatDate, formatMonth, monthKey } from "@/lib/format"
 import { TransactionTable } from "./TransactionTable";
 import { TransactionForm } from "./TransactionForm";
 import { SummaryTiles } from "./SummaryTiles";
+import { CategoryChart } from "./CategoryChart";
+import { MonthlyChart } from "./MonthlyChart";
 
 type DialogState = { kind: "add" } | { kind: "edit"; transaction: Transaction } | null;
 
@@ -118,6 +120,19 @@ export function ExpenseTracker() {
       </div>
 
       <SummaryTiles transactions={scoped} previous={previous} />
+
+      <div className="grid grid--charts">
+        <section className="card">
+          <h2 className="card__title">Spending by category</h2>
+          <p className="card__sub">{month === "all" ? "All time" : formatMonth(month)}</p>
+          <CategoryChart transactions={scoped} />
+        </section>
+        <section className="card">
+          <h2 className="card__title">Income vs expenses</h2>
+          <p className="card__sub">By month</p>
+          <MonthlyChart transactions={matching} selectedMonth={month} />
+        </section>
+      </div>
 
       <section className="card">
         <h2 className="card__title">Transactions</h2>
