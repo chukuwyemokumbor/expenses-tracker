@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
 import { formatCurrency, totals } from "@/lib/format";
 import { TransactionTable } from "./TransactionTable";
+import { TransactionForm } from "./TransactionForm";
 
 export function ExpenseTracker() {
   const store = useTransactions();
   const { income, expenses, net } = totals(store.transactions);
+  const [adding, setAdding] = useState(false);
 
   return (
     <main className="page">
@@ -18,15 +21,22 @@ export function ExpenseTracker() {
             {formatCurrency(net)} net
           </p>
         </div>
-        <button type="button" className="btn btn--ghost" onClick={store.resetData}>
-          Reset sample data
-        </button>
+        <div className="page__actions">
+          <button type="button" className="btn btn--ghost" onClick={store.resetData}>
+            Reset sample data
+          </button>
+          <button type="button" className="btn btn--primary" onClick={() => setAdding(true)}>
+            + Add transaction
+          </button>
+        </div>
       </header>
 
       <section className="card">
         <h2 className="card__title">Transactions</h2>
         <TransactionTable transactions={store.transactions} />
       </section>
+
+      {adding && <TransactionForm onSave={store.addTransaction} onClose={() => setAdding(false)} />}
     </main>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Transaction } from "@/types/transaction";
+import type { Transaction, TransactionInput } from "@/types/transaction";
 import { createSampleTransactions } from "@/data/sample";
 
 const STORAGE_KEY = "expense-tracker:transactions";
@@ -32,6 +32,8 @@ export function useTransactions() {
 
   return {
     transactions,
+    addTransaction: (input: TransactionInput) =>
+      setTransactions((prev) => [...prev, { ...input, id: crypto.randomUUID() }]),
     resetData: () => setTransactions(createSampleTransactions()),
   };
 }
