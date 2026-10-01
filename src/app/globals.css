@@ -135,6 +135,10 @@ select {
   background: var(--accent);
   filter: brightness(1.08);
 }
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .btn--ghost {
   background: transparent;
   border-color: transparent;
@@ -611,4 +615,49 @@ button:focus-visible {
   background: var(--surface-2);
   color: var(--ink);
   font-weight: 600;
+}
+
+/* ---------- Loading & error states ---------- */
+.state {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 28px 24px;
+}
+.state__title {
+  font-weight: 600;
+  font-size: 15px;
+}
+.state__body {
+  color: var(--ink-2);
+}
+.state__body p {
+  margin: 4px 0 12px;
+}
+.state__icon {
+  margin-top: 2px;
+  background: var(--critical);
+}
+.spinner {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border: 2px solid var(--grid);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2.4s;
+  }
+}
+.banner__text {
+  flex: 1;
 }

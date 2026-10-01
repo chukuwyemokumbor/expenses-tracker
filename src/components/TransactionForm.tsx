@@ -4,12 +4,13 @@ import { useState, type FormEvent } from "react";
 import type { Transaction, TransactionInput, TransactionType } from "@/types/transaction";
 import { categoriesFor } from "@/lib/categories";
 import { todayISO } from "@/lib/format";
+import { errorMessage } from "@/lib/api";
 import { Modal } from "./Modal";
 
 interface Props {
   /** When set, the form edits this transaction instead of adding a new one. */
   transaction?: Transaction;
-  onSave: (input: TransactionInput) => unknown;
+  onSave: (input: TransactionInput) => Promise<void>;
   onClose: () => void;
 }
 
@@ -26,6 +27,7 @@ export function TransactionForm({ transaction, onSave, onClose }: Props) {
       : { type: "expense", amount: 0, category: categoriesFor("expense")[0], description: "", date: todayISO() },
   );
   const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   const set = <K extends keyof TransactionInput>(key: K, value: TransactionInput[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -39,7 +41,7 @@ export function TransactionForm({ transaction, onSave, onClose }: Props) {
     }));
   }
 
-  function submit(e: FormEvent) {
+  async function submit(e: FormEvent) {
     e.preventDefault();
     if (!Number.isFinite(form.amount) || form.amount <= 0) {
       setError("Enter an amount greater than zero.");
@@ -53,8 +55,15 @@ export function TransactionForm({ transaction, onSave, onClose }: Props) {
       setError("Pick a date.");
       return;
     }
-    onSave({ ...form, amount: Math.round(form.amount * 100) / 100, description: form.description.trim() });
-    onClose();
+    setError(null);
+    setSaving(true);
+    try {
+      await onSave({ ...form, amount: Math.round(form.amount * 100) / 100, description: form.description.trim() });
+      onClose();
+    } catch (err) {
+      setError(errorMessage(err));
+      setSaving(false);
+    }
   }
 
   return (
@@ -119,8 +128,8 @@ export function TransactionForm({ transaction, onSave, onClose }: Props) {
           <button type="button" className="btn" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="btn btn--primary">
-            {transaction ? "Save changes" : "Add transaction"}
+          <button type="submit" className="btn btn--primary" disabled={saving}>
+            {saving ? "Saving…" : transaction ? "Save changes" : "Add transaction"}
           </button>
         </div>
       </form>

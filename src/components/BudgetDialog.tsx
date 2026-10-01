@@ -3,12 +3,13 @@
 import { useState, type FormEvent } from "react";
 import type { Budgets } from "@/types/transaction";
 import { EXPENSE_CATEGORIES } from "@/lib/categories";
+import { errorMessage } from "@/lib/api";
 import { Modal } from "./Modal";
 
 interface Props {
   budgets: Budgets;
-  onSave: (budgets: Budgets) => unknown;
-  onReset: () => unknown;
+  onSave: (budgets: Budgets) => Promise<void>;
+  onReset: () => Promise<void>;
   onClose: () => void;
 }
 
@@ -18,6 +19,19 @@ export function BudgetDialog({ budgets, onSave, onReset, onClose }: Props) {
     Object.fromEntries(EXPENSE_CATEGORIES.map((c) => [c, budgets[c] ? String(budgets[c]) : ""])),
   );
   const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  async function run(action: () => Promise<void>) {
+    setError(null);
+    setSaving(true);
+    try {
+      await action();
+      onClose();
+    } catch (err) {
+      setError(errorMessage(err));
+      setSaving(false);
+    }
+  }
 
   function submit(e: FormEvent) {
     e.preventDefault();
@@ -31,8 +45,7 @@ export function BudgetDialog({ budgets, onSave, onReset, onClose }: Props) {
       }
       if (n > 0) next[category] = Math.round(n * 100) / 100;
     }
-    onSave(next);
-    onClose();
+    void run(() => onSave(next));
   }
 
   return (
@@ -63,18 +76,16 @@ export function BudgetDialog({ budgets, onSave, onReset, onClose }: Props) {
           <button
             type="button"
             className="btn btn--ghost form__actions-start"
-            onClick={() => {
-              onReset();
-              onClose();
-            }}
+            onClick={() => void run(onReset)}
+            disabled={saving}
           >
             Restore defaults
           </button>
           <button type="button" className="btn" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="btn btn--primary">
-            Save budgets
+          <button type="submit" className="btn btn--primary" disabled={saving}>
+            {saving ? "Saving…" : "Save budgets"}
           </button>
         </div>
       </form>
