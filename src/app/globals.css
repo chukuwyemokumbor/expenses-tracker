@@ -134,6 +134,11 @@ select {
   background: transparent;
   border-color: transparent;
 }
+.btn--small {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 13px;
+}
 input,
 select {
   height: 34px;
@@ -223,6 +228,11 @@ button:focus-visible {
 }
 .amount--expense {
   color: var(--expense-ink);
+}
+.table .actions {
+  text-align: right;
+  white-space: nowrap;
+  width: 1%;
 }
 .th-sort {
   border: 0;

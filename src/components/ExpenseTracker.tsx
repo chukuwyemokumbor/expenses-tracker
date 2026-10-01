@@ -2,14 +2,17 @@
 
 import { useState } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
+import type { Transaction } from "@/types/transaction";
 import { formatCurrency, totals } from "@/lib/format";
 import { TransactionTable } from "./TransactionTable";
 import { TransactionForm } from "./TransactionForm";
 
+type DialogState = { kind: "add" } | { kind: "edit"; transaction: Transaction } | null;
+
 export function ExpenseTracker() {
   const store = useTransactions();
   const { income, expenses, net } = totals(store.transactions);
-  const [adding, setAdding] = useState(false);
+  const [dialog, setDialog] = useState<DialogState>(null);
 
   return (
     <main className="page">
@@ -25,7 +28,7 @@ export function ExpenseTracker() {
           <button type="button" className="btn btn--ghost" onClick={store.resetData}>
             Reset sample data
           </button>
-          <button type="button" className="btn btn--primary" onClick={() => setAdding(true)}>
+          <button type="button" className="btn btn--primary" onClick={() => setDialog({ kind: "add" })}>
             + Add transaction
           </button>
         </div>
@@ -33,10 +36,20 @@ export function ExpenseTracker() {
 
       <section className="card">
         <h2 className="card__title">Transactions</h2>
-        <TransactionTable transactions={store.transactions} />
+        <TransactionTable
+          transactions={store.transactions}
+          onEdit={(transaction) => setDialog({ kind: "edit", transaction })}
+        />
       </section>
 
-      {adding && <TransactionForm onSave={store.addTransaction} onClose={() => setAdding(false)} />}
+      {dialog?.kind === "add" && <TransactionForm onSave={store.addTransaction} onClose={() => setDialog(null)} />}
+      {dialog?.kind === "edit" && (
+        <TransactionForm
+          transaction={dialog.transaction}
+          onSave={(input) => store.updateTransaction(dialog.transaction.id, input)}
+          onClose={() => setDialog(null)}
+        />
+      )}
     </main>
   );
 }

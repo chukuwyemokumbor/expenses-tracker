@@ -15,9 +15,10 @@ const COLUMNS: { key: SortKey; label: string; numeric?: boolean }[] = [
 
 interface Props {
   transactions: Transaction[];
+  onEdit: (t: Transaction) => void;
 }
 
-export function TransactionTable({ transactions }: Props) {
+export function TransactionTable({ transactions, onEdit }: Props) {
   // Newest first by default.
   const [sort, setSort] = useState<{ key: SortKey; dir: 1 | -1 }>({ key: "date", dir: -1 });
 
@@ -52,6 +53,9 @@ export function TransactionTable({ transactions }: Props) {
                 </button>
               </th>
             ))}
+            <th>
+              <span className="visually-hidden">Actions</span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -65,6 +69,11 @@ export function TransactionTable({ transactions }: Props) {
               <td className={`num amount amount--${t.type}`}>
                 {t.type === "income" ? "+" : "−"}
                 {formatCurrency(t.amount)}
+              </td>
+              <td className="actions">
+                <button type="button" className="btn btn--small btn--ghost" onClick={() => onEdit(t)}>
+                  Edit
+                </button>
               </td>
             </tr>
           ))}

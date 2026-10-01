@@ -34,6 +34,8 @@ export function useTransactions() {
     transactions,
     addTransaction: (input: TransactionInput) =>
       setTransactions((prev) => [...prev, { ...input, id: crypto.randomUUID() }]),
+    updateTransaction: (id: string, input: TransactionInput) =>
+      setTransactions((prev) => prev.map((t) => (t.id === id ? { ...input, id } : t))),
     resetData: () => setTransactions(createSampleTransactions()),
   };
 }

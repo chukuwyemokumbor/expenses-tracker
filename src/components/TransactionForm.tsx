@@ -1,24 +1,30 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { TransactionInput, TransactionType } from "@/types/transaction";
+import type { Transaction, TransactionInput, TransactionType } from "@/types/transaction";
 import { categoriesFor } from "@/lib/categories";
 import { todayISO } from "@/lib/format";
 import { Modal } from "./Modal";
 
 interface Props {
+  /** When set, the form edits this transaction instead of adding a new one. */
+  transaction?: Transaction;
   onSave: (input: TransactionInput) => void;
   onClose: () => void;
 }
 
-export function TransactionForm({ onSave, onClose }: Props) {
-  const [form, setForm] = useState<TransactionInput>(() => ({
-    type: "expense",
-    amount: 0,
-    category: categoriesFor("expense")[0],
-    description: "",
-    date: todayISO(),
-  }));
+export function TransactionForm({ transaction, onSave, onClose }: Props) {
+  const [form, setForm] = useState<TransactionInput>(() =>
+    transaction
+      ? {
+          type: transaction.type,
+          amount: transaction.amount,
+          category: transaction.category,
+          description: transaction.description,
+          date: transaction.date,
+        }
+      : { type: "expense", amount: 0, category: categoriesFor("expense")[0], description: "", date: todayISO() },
+  );
   const [error, setError] = useState<string | null>(null);
 
   const set = <K extends keyof TransactionInput>(key: K, value: TransactionInput[K]) =>
@@ -52,7 +58,7 @@ export function TransactionForm({ onSave, onClose }: Props) {
   }
 
   return (
-    <Modal title="Add transaction" onClose={onClose}>
+    <Modal title={transaction ? "Edit transaction" : "Add transaction"} onClose={onClose}>
       <form className="form" onSubmit={submit}>
         <div className="segmented" role="radiogroup" aria-label="Transaction type">
           {(["expense", "income"] as const).map((type) => (
@@ -114,7 +120,7 @@ export function TransactionForm({ onSave, onClose }: Props) {
             Cancel
           </button>
           <button type="submit" className="btn btn--primary">
-            Add transaction
+            {transaction ? "Save changes" : "Add transaction"}
           </button>
         </div>
       </form>
