@@ -2,6 +2,7 @@
 
 import { useTransactions } from "@/hooks/useTransactions";
 import { formatCurrency, totals } from "@/lib/format";
+import { TransactionTable } from "./TransactionTable";
 
 export function ExpenseTracker() {
   const store = useTransactions();
@@ -21,6 +22,11 @@ export function ExpenseTracker() {
           Reset sample data
         </button>
       </header>
+
+      <section className="card">
+        <h2 className="card__title">Transactions</h2>
+        <TransactionTable transactions={store.transactions} />
+      </section>
     </main>
   );
 }

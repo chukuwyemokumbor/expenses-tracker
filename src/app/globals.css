@@ -125,3 +125,93 @@ button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  min-width: 0;
+}
+.card__title {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+.empty {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---------- Table ---------- */
+.table-wrap {
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+.table th,
+.table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--grid);
+}
+.table th {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  border-bottom-color: var(--axis);
+}
+.table tbody tr:hover {
+  background: var(--surface-2);
+}
+.table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.cell-date {
+  color: var(--ink-2);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.cell-name {
+  font-weight: 500;
+}
+.chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.amount {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.amount--income {
+  color: var(--income-ink);
+}
+.amount--expense {
+  color: var(--expense-ink);
+}
+.th-sort {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 4px;
+}
+.th-sort__arrow {
+  font-size: 9px;
+  width: 9px;
+}
