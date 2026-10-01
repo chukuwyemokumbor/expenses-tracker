@@ -1,0 +1,580 @@
+{
+  "transactions": [
+    {
+      "type": "income",
+      "amount": 3200,
+      "category": "Salary",
+      "description": "Monthly salary",
+      "date": "2024-11-01",
+      "id": "sample-1"
+    },
+    {
+      "type": "expense",
+      "amount": 1250,
+      "category": "Housing",
+      "description": "Rent",
+      "date": "2024-11-01",
+      "id": "sample-2"
+    },
+    {
+      "type": "expense",
+      "amount": 114.15,
+      "category": "Utilities",
+      "description": "Electricity & water",
+      "date": "2024-11-14",
+      "id": "sample-3"
+    },
+    {
+      "type": "expense",
+      "amount": 59.99,
+      "category": "Utilities",
+      "description": "Internet",
+      "date": "2024-11-18",
+      "id": "sample-4"
+    },
+    {
+      "type": "expense",
+      "amount": 45,
+      "category": "Health",
+      "description": "Gym membership",
+      "date": "2024-11-05",
+      "id": "sample-5"
+    },
+    {
+      "type": "income",
+      "amount": 423.69,
+      "category": "Freelance",
+      "description": "Website project",
+      "date": "2024-11-20",
+      "id": "sample-6"
+    },
+    {
+      "type": "expense",
+      "amount": 65.46,
+      "category": "Groceries",
+      "description": "Farmers market",
+      "date": "2024-11-03",
+      "id": "sample-7"
+    },
+    {
+      "type": "expense",
+      "amount": 110.98,
+      "category": "Groceries",
+      "description": "Trader Joe's",
+      "date": "2024-11-10",
+      "id": "sample-8"
+    },
+    {
+      "type": "expense",
+      "amount": 92.23,
+      "category": "Groceries",
+      "description": "Farmers market",
+      "date": "2024-11-17",
+      "id": "sample-9"
+    },
+    {
+      "type": "expense",
+      "amount": 75.07,
+      "category": "Groceries",
+      "description": "Trader Joe's",
+      "date": "2024-11-24",
+      "id": "sample-10"
+    },
+    {
+      "type": "expense",
+      "amount": 24.43,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2024-11-04",
+      "id": "sample-11"
+    },
+    {
+      "type": "expense",
+      "amount": 27.58,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2024-11-29",
+      "id": "sample-12"
+    },
+    {
+      "type": "expense",
+      "amount": 11.39,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2024-11-05",
+      "id": "sample-13"
+    },
+    {
+      "type": "expense",
+      "amount": 18.36,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2024-11-08",
+      "id": "sample-14"
+    },
+    {
+      "type": "expense",
+      "amount": 13.88,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2024-11-02",
+      "id": "sample-15"
+    },
+    {
+      "type": "expense",
+      "amount": 11.19,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2024-11-01",
+      "id": "sample-16"
+    },
+    {
+      "type": "expense",
+      "amount": 40.13,
+      "category": "Dining out",
+      "description": "Thai Basil",
+      "date": "2024-11-02",
+      "id": "sample-17"
+    },
+    {
+      "type": "expense",
+      "amount": 56.6,
+      "category": "Dining out",
+      "description": "Thai Basil",
+      "date": "2024-11-17",
+      "id": "sample-18"
+    },
+    {
+      "type": "expense",
+      "amount": 41.99,
+      "category": "Dining out",
+      "description": "Sushi Zen",
+      "date": "2024-11-11",
+      "id": "sample-19"
+    },
+    {
+      "type": "expense",
+      "amount": 55.34,
+      "category": "Dining out",
+      "description": "Thai Basil",
+      "date": "2024-11-27",
+      "id": "sample-20"
+    },
+    {
+      "type": "expense",
+      "amount": 42.55,
+      "category": "Entertainment",
+      "description": "Bowling",
+      "date": "2024-11-29",
+      "id": "sample-21"
+    },
+    {
+      "type": "expense",
+      "amount": 53.07,
+      "category": "Entertainment",
+      "description": "Concert",
+      "date": "2024-11-04",
+      "id": "sample-22"
+    },
+    {
+      "type": "income",
+      "amount": 3200,
+      "category": "Salary",
+      "description": "Monthly salary",
+      "date": "2024-12-01",
+      "id": "sample-23"
+    },
+    {
+      "type": "expense",
+      "amount": 1250,
+      "category": "Housing",
+      "description": "Rent",
+      "date": "2024-12-01",
+      "id": "sample-24"
+    },
+    {
+      "type": "expense",
+      "amount": 128.08,
+      "category": "Utilities",
+      "description": "Electricity & water",
+      "date": "2024-12-14",
+      "id": "sample-25"
+    },
+    {
+      "type": "expense",
+      "amount": 59.99,
+      "category": "Utilities",
+      "description": "Internet",
+      "date": "2024-12-18",
+      "id": "sample-26"
+    },
+    {
+      "type": "expense",
+      "amount": 45,
+      "category": "Health",
+      "description": "Gym membership",
+      "date": "2024-12-05",
+      "id": "sample-27"
+    },
+    {
+      "type": "income",
+      "amount": 589.37,
+      "category": "Freelance",
+      "description": "Website project",
+      "date": "2024-12-20",
+      "id": "sample-28"
+    },
+    {
+      "type": "income",
+      "amount": 150,
+      "category": "Gifts",
+      "description": "Holiday gift",
+      "date": "2024-12-25",
+      "id": "sample-29"
+    },
+    {
+      "type": "expense",
+      "amount": 254.1,
+      "category": "Shopping",
+      "description": "Holiday presents",
+      "date": "2024-12-19",
+      "id": "sample-30"
+    },
+    {
+      "type": "expense",
+      "amount": 87.19,
+      "category": "Groceries",
+      "description": "Trader Joe's",
+      "date": "2024-12-03",
+      "id": "sample-31"
+    },
+    {
+      "type": "expense",
+      "amount": 63.75,
+      "category": "Groceries",
+      "description": "Trader Joe's",
+      "date": "2024-12-10",
+      "id": "sample-32"
+    },
+    {
+      "type": "expense",
+      "amount": 110.85,
+      "category": "Groceries",
+      "description": "Farmers market",
+      "date": "2024-12-17",
+      "id": "sample-33"
+    },
+    {
+      "type": "expense",
+      "amount": 101.03,
+      "category": "Groceries",
+      "description": "Farmers market",
+      "date": "2024-12-24",
+      "id": "sample-34"
+    },
+    {
+      "type": "expense",
+      "amount": 82.27,
+      "category": "Groceries",
+      "description": "Farmers market",
+      "date": "2024-12-31",
+      "id": "sample-35"
+    },
+    {
+      "type": "expense",
+      "amount": 7.21,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2024-12-06",
+      "id": "sample-36"
+    },
+    {
+      "type": "expense",
+      "amount": 28.35,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2024-12-11",
+      "id": "sample-37"
+    },
+    {
+      "type": "expense",
+      "amount": 31.51,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2024-12-20",
+      "id": "sample-38"
+    },
+    {
+      "type": "expense",
+      "amount": 28.26,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2024-12-26",
+      "id": "sample-39"
+    },
+    {
+      "type": "expense",
+      "amount": 31.04,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2024-12-01",
+      "id": "sample-40"
+    },
+    {
+      "type": "expense",
+      "amount": 4.25,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2024-12-12",
+      "id": "sample-41"
+    },
+    {
+      "type": "expense",
+      "amount": 23.51,
+      "category": "Dining out",
+      "description": "Brunch",
+      "date": "2024-12-08",
+      "id": "sample-42"
+    },
+    {
+      "type": "expense",
+      "amount": 19.02,
+      "category": "Dining out",
+      "description": "Thai Basil",
+      "date": "2024-12-09",
+      "id": "sample-43"
+    },
+    {
+      "type": "expense",
+      "amount": 62.18,
+      "category": "Dining out",
+      "description": "Pizza night",
+      "date": "2024-12-04",
+      "id": "sample-44"
+    },
+    {
+      "type": "expense",
+      "amount": 51.56,
+      "category": "Dining out",
+      "description": "Taco Tuesday",
+      "date": "2024-12-25",
+      "id": "sample-45"
+    },
+    {
+      "type": "expense",
+      "amount": 34.01,
+      "category": "Entertainment",
+      "description": "Bowling",
+      "date": "2024-12-22",
+      "id": "sample-46"
+    },
+    {
+      "type": "expense",
+      "amount": 10.63,
+      "category": "Entertainment",
+      "description": "Streaming subscription",
+      "date": "2024-12-31",
+      "id": "sample-47"
+    },
+    {
+      "type": "expense",
+      "amount": 56.2,
+      "category": "Shopping",
+      "description": "Books",
+      "date": "2024-12-29",
+      "id": "sample-48"
+    },
+    {
+      "type": "income",
+      "amount": 3200,
+      "category": "Salary",
+      "description": "Monthly salary",
+      "date": "2025-01-01",
+      "id": "sample-49"
+    },
+    {
+      "type": "expense",
+      "amount": 1250,
+      "category": "Housing",
+      "description": "Rent",
+      "date": "2025-01-01",
+      "id": "sample-50"
+    },
+    {
+      "type": "expense",
+      "amount": 110.05,
+      "category": "Utilities",
+      "description": "Electricity & water",
+      "date": "2025-01-14",
+      "id": "sample-51"
+    },
+    {
+      "type": "expense",
+      "amount": 59.99,
+      "category": "Utilities",
+      "description": "Internet",
+      "date": "2025-01-18",
+      "id": "sample-52"
+    },
+    {
+      "type": "expense",
+      "amount": 45,
+      "category": "Health",
+      "description": "Gym membership",
+      "date": "2025-01-05",
+      "id": "sample-53"
+    },
+    {
+      "type": "expense",
+      "amount": 86.22,
+      "category": "Groceries",
+      "description": "Costco",
+      "date": "2025-01-03",
+      "id": "sample-54"
+    },
+    {
+      "type": "expense",
+      "amount": 108.54,
+      "category": "Groceries",
+      "description": "Trader Joe's",
+      "date": "2025-01-10",
+      "id": "sample-55"
+    },
+    {
+      "type": "expense",
+      "amount": 85.87,
+      "category": "Groceries",
+      "description": "Costco",
+      "date": "2025-01-17",
+      "id": "sample-56"
+    },
+    {
+      "type": "expense",
+      "amount": 68.62,
+      "category": "Groceries",
+      "description": "Whole Foods",
+      "date": "2025-01-24",
+      "id": "sample-57"
+    },
+    {
+      "type": "expense",
+      "amount": 62.44,
+      "category": "Groceries",
+      "description": "Farmers market",
+      "date": "2025-01-31",
+      "id": "sample-58"
+    },
+    {
+      "type": "expense",
+      "amount": 18.27,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2025-01-18",
+      "id": "sample-59"
+    },
+    {
+      "type": "expense",
+      "amount": 25.13,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2025-01-01",
+      "id": "sample-60"
+    },
+    {
+      "type": "expense",
+      "amount": 8.54,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2025-01-14",
+      "id": "sample-61"
+    },
+    {
+      "type": "expense",
+      "amount": 3.08,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2025-01-22",
+      "id": "sample-62"
+    },
+    {
+      "type": "expense",
+      "amount": 16.52,
+      "category": "Transport",
+      "description": "Ride share",
+      "date": "2025-01-13",
+      "id": "sample-63"
+    },
+    {
+      "type": "expense",
+      "amount": 18.33,
+      "category": "Transport",
+      "description": "Metro card top-up",
+      "date": "2025-01-26",
+      "id": "sample-64"
+    },
+    {
+      "type": "expense",
+      "amount": 15.86,
+      "category": "Dining out",
+      "description": "Thai Basil",
+      "date": "2025-01-02",
+      "id": "sample-65"
+    },
+    {
+      "type": "expense",
+      "amount": 29.09,
+      "category": "Dining out",
+      "description": "Taco Tuesday",
+      "date": "2025-01-20",
+      "id": "sample-66"
+    },
+    {
+      "type": "expense",
+      "amount": 17.81,
+      "category": "Dining out",
+      "description": "Coffee with Sam",
+      "date": "2025-01-06",
+      "id": "sample-67"
+    },
+    {
+      "type": "expense",
+      "amount": 48.14,
+      "category": "Dining out",
+      "description": "Brunch",
+      "date": "2025-01-20",
+      "id": "sample-68"
+    },
+    {
+      "type": "expense",
+      "amount": 45.88,
+      "category": "Entertainment",
+      "description": "Museum",
+      "date": "2025-01-07",
+      "id": "sample-69"
+    },
+    {
+      "type": "expense",
+      "amount": 74.7,
+      "category": "Entertainment",
+      "description": "Concert",
+      "date": "2025-01-11",
+      "id": "sample-70"
+    },
+    {
+      "type": "expense",
+      "amount": 36.95,
+      "category": "Shopping",
+      "description": "New running shoes",
+      "date": "2025-01-12",
+      "id": "sample-71"
+    }
+  ],
+  "budgets": {
+    "Groceries": 400,
+    "Dining out": 150,
+    "Transport": 120,
+    "Utilities": 200,
+    "Entertainment": 100,
+    "Shopping": 150
+  }
+}

@@ -9,7 +9,7 @@ import { Modal } from "./Modal";
 interface Props {
   /** When set, the form edits this transaction instead of adding a new one. */
   transaction?: Transaction;
-  onSave: (input: TransactionInput) => void;
+  onSave: (input: TransactionInput) => unknown;
   onClose: () => void;
 }
 

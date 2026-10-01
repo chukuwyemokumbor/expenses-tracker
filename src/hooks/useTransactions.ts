@@ -2,41 +2,32 @@
 
 import { useEffect, useState } from "react";
 import type { Transaction, TransactionInput } from "@/types/transaction";
-import { createSampleTransactions } from "@/data/sample";
-
-const STORAGE_KEY = "expense-tracker:transactions";
-
-function load(): Transaction[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed: unknown = JSON.parse(raw);
-      if (Array.isArray(parsed)) return parsed as Transaction[];
-    }
-  } catch {
-    // Storage unavailable or corrupt: fall back to the sample data.
-  }
-  return createSampleTransactions();
-}
+import { api } from "@/lib/api";
 
 export function useTransactions() {
-  const [transactions, setTransactions] = useState<Transaction[]>(load);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
-    } catch {
-      // Ignore quota / privacy-mode errors; the app still works in memory.
-    }
-  }, [transactions]);
+    api.listTransactions().then(setTransactions).catch(console.error);
+  }, []);
 
   return {
     transactions,
+    replaceAll: setTransactions,
     addTransaction: (input: TransactionInput) =>
-      setTransactions((prev) => [...prev, { ...input, id: crypto.randomUUID() }]),
+      api
+        .createTransaction(input)
+        .then((created) => setTransactions((prev) => [...prev, created]))
+        .catch(console.error),
     updateTransaction: (id: string, input: TransactionInput) =>
-      setTransactions((prev) => prev.map((t) => (t.id === id ? { ...input, id } : t))),
-    deleteTransaction: (id: string) => setTransactions((prev) => prev.filter((t) => t.id !== id)),
-    resetData: () => setTransactions(createSampleTransactions()),
+      api
+        .updateTransaction(id, input)
+        .then((saved) => setTransactions((prev) => prev.map((t) => (t.id === id ? saved : t))))
+        .catch(console.error),
+    deleteTransaction: (id: string) =>
+      api
+        .deleteTransaction(id)
+        .then(() => setTransactions((prev) => prev.filter((t) => t.id !== id)))
+        .catch(console.error),
   };
 }

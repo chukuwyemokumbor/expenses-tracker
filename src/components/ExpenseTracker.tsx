@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
 import { useBudgets } from "@/hooks/useBudgets";
 import { budgetLines } from "@/lib/budget";
+import { api } from "@/lib/api";
 import type { Transaction, TransactionType } from "@/types/transaction";
 import { formatCurrency, formatDate, formatMonth, monthKey } from "@/lib/format";
 import { TransactionTable } from "./TransactionTable";
@@ -70,6 +71,18 @@ export function ExpenseTracker() {
   const overCount = lines.filter((l) => l.status === "over").length;
   const warnCount = lines.filter((l) => l.status === "warning").length;
 
+  async function handleReset() {
+    if (!confirm("Replace everything with the sample data? Your changes will be lost.")) return;
+    try {
+      const data = await api.reset();
+      store.replaceAll(data.transactions);
+      budgetStore.replaceAll(data.budgets);
+      setMonthChoice(null);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   function handleDelete(t: Transaction) {
     const label = `${t.description} (${formatCurrency(t.amount)} on ${formatDate(t.date)})`;
     if (confirm(`Delete ${label}? This can't be undone.`)) store.deleteTransaction(t.id);
@@ -85,7 +98,7 @@ export function ExpenseTracker() {
           </p>
         </div>
         <div className="page__actions">
-          <button type="button" className="btn btn--ghost" onClick={store.resetData}>
+          <button type="button" className="btn btn--ghost" onClick={handleReset}>
             Reset sample data
           </button>
           <button type="button" className="btn btn--primary" onClick={() => setDialog({ kind: "add" })}>

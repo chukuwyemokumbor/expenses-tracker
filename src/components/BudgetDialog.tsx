@@ -7,8 +7,8 @@ import { Modal } from "./Modal";
 
 interface Props {
   budgets: Budgets;
-  onSave: (budgets: Budgets) => void;
-  onReset: () => void;
+  onSave: (budgets: Budgets) => unknown;
+  onReset: () => unknown;
   onClose: () => void;
 }
 
