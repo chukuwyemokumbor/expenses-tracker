@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTransactions } from "@/hooks/useTransactions";
-import type { Transaction } from "@/types/transaction";
-import { formatCurrency, formatDate, totals } from "@/lib/format";
+import type { Transaction, TransactionType } from "@/types/transaction";
+import { formatCurrency, formatDate, formatMonth, monthKey, totals } from "@/lib/format";
 import { TransactionTable } from "./TransactionTable";
 import { TransactionForm } from "./TransactionForm";
 
@@ -13,6 +13,42 @@ export function ExpenseTracker() {
   const store = useTransactions();
   const { income, expenses, net } = totals(store.transactions);
   const [dialog, setDialog] = useState<DialogState>(null);
+
+  // null means "the most recent month that has transactions".
+  const [monthChoice, setMonthChoice] = useState<string | null>(null);
+  const [type, setType] = useState<"all" | TransactionType>("all");
+  const [category, setCategory] = useState("all");
+  const [query, setQuery] = useState("");
+
+  const months = useMemo(
+    () => [...new Set(store.transactions.map((t) => monthKey(t.date)))].sort().reverse(),
+    [store.transactions],
+  );
+  const month = monthChoice ?? months[0] ?? "all";
+  const categories = useMemo(
+    () => [...new Set(store.transactions.map((t) => t.category))].sort(),
+    [store.transactions],
+  );
+
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return store.transactions.filter(
+      (t) =>
+        (month === "all" || monthKey(t.date) === month) &&
+        (type === "all" || t.type === type) &&
+        (category === "all" || t.category === category) &&
+        (!q || t.description.toLowerCase().includes(q) || t.category.toLowerCase().includes(q)),
+    );
+  }, [store.transactions, month, type, category, query]);
+
+  const isFiltered = monthChoice !== null || type !== "all" || category !== "all" || query !== "";
+
+  function clearFilters() {
+    setMonthChoice(null);
+    setType("all");
+    setCategory("all");
+    setQuery("");
+  }
 
   function handleDelete(t: Transaction) {
     const label = `${t.description} (${formatCurrency(t.amount)} on ${formatDate(t.date)})`;
@@ -39,10 +75,49 @@ export function ExpenseTracker() {
         </div>
       </header>
 
+      <div className="filters" role="search">
+        <select value={month} onChange={(e) => setMonthChoice(e.target.value)} aria-label="Month">
+          <option value="all">All months</option>
+          {months.map((m) => (
+            <option key={m} value={m}>
+              {formatMonth(m)}
+            </option>
+          ))}
+        </select>
+        <select value={type} onChange={(e) => setType(e.target.value as "all" | TransactionType)} aria-label="Type">
+          <option value="all">Income & expenses</option>
+          <option value="income">Income only</option>
+          <option value="expense">Expenses only</option>
+        </select>
+        <select value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Category">
+          <option value="all">All categories</option>
+          {categories.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+        <input
+          type="search"
+          placeholder="Search transactions…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          aria-label="Search transactions"
+        />
+        {isFiltered && (
+          <button type="button" className="btn btn--ghost" onClick={clearFilters}>
+            Clear filters
+          </button>
+        )}
+      </div>
+
       <section className="card">
         <h2 className="card__title">Transactions</h2>
+        <p className="card__sub">
+          {visible.length} of {store.transactions.length} transactions
+        </p>
         <TransactionTable
-          transactions={store.transactions}
+          transactions={visible}
           onEdit={(transaction) => setDialog({ kind: "edit", transaction })}
           onDelete={handleDelete}
         />

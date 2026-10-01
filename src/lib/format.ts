@@ -29,3 +29,12 @@ export const todayISO = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 };
+
+/** "2025-01" -> "January 2025" */
+export function formatMonth(key: string) {
+  const [y, m] = key.split("-").map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+/** "2025-01-14" -> "2025-01" */
+export const monthKey = (iso: string) => iso.slice(0, 7);

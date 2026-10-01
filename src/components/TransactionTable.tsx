@@ -33,7 +33,7 @@ export function TransactionTable({ transactions, onEdit, onDelete }: Props) {
   const toggle = (key: SortKey) =>
     setSort((s) => (s.key === key ? { key, dir: s.dir === 1 ? -1 : 1 } : { key, dir: key === "date" ? -1 : 1 }));
 
-  if (transactions.length === 0) return <div className="empty">No transactions yet.</div>;
+  if (transactions.length === 0) return <div className="empty">No transactions match these filters.</div>;
 
   return (
     <div className="table-wrap">
